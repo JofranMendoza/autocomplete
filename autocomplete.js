@@ -2,7 +2,6 @@ $(function() {
 
 		$.fn.autocompletar = function(options) {
 			// var isUrl = (typeof link == "string");
-
 			defaults = {
 				inputClass: "autocomplete-input",
 				resultsClass: "autocomplete-results",
