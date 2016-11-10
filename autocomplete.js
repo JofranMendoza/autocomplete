@@ -48,7 +48,7 @@ $(function() {
 			};
 
 			var configuracion = $.extend({
-            	// These are the defaults.
+            	// These are default settings.
             	color: "#666",
             	backgroundColor: "white"
         	}, options );
