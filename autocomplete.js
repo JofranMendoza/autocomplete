@@ -115,6 +115,7 @@ $(function() {
 				default:
 					if ($(this).is('#txtNombreCancion')){
 						tiempoEscrito = setTimeout(cargarMusicaYT,tiempoDeEscribir);
+
 					} else {
 						$("#txtLinkVideo").removeClass("autocomplete-loading");
 						tiempoEscrito = setTimeout(autocomplete,tiempoDeEscribir);
@@ -150,6 +151,7 @@ $(function() {
 					// $("#btnBuscar").attr("disabled","true");
 					// $("#btnBuscar").css("background-color","gray");
 			}
+
 		});
 		$('#selectNombreArtista').change(function(){
 			cargarMusicaYT();
@@ -177,11 +179,13 @@ $(function() {
 		}
 
 		function autocomplete(){
+
 			valor = $("#txtLinkVideo").val();
 			posicion = $("#txtLinkVideo").position(); // Obtener la posicion del Input en la ventana
 			direccion = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&order=viewcount&type=video+&videoDefinition=high&key=";
 			claveDeAPI = 'AIzaSyDS4CW6iMg0U8uVQ4Iu7CtYFBQ6g9E06MM';
 			if (valor.length > 2) { // Si el input tiene mas de dos caracteres ejecutar el codigo de abajo
+				
 				$("#txtLinkVideo").addClass("autocomplete-loading");
 				// search(); Esto se utiliza con el archivo search.js
 				//Peticion al servidor para obtener un JSON con el listado del autocomplete
