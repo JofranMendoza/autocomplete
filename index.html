@@ -2,12 +2,31 @@
 <html>
 <head>
 	<title>Autocomplete</title>
+	<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="node_modules\font-awesome\css\font-awesome.min.css">
 	<script type="text/javascript" src='node_modules/jquery/dist/jquery.min.js' ></script>
+	<script type="text/javascript" src='node_modules/bootstrap/dist/js/bootstrap.js' ></script>
 	<script type="text/javascript" src='autocomplete.js' ></script>
+
+	<style type="text/css">
+		.autocomplete-loading { display: none; }
+	</style>
 	
 </head>
 <body>
-	<input id="txtLinkVideo" placeholder='hola'></input>
-	<div id="search-container"></div>
+	<div class="container-fluid">
+		
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label>Type anything</label>
+					<input id="txtAutocomplete" class="form-control autocomplete-input" placeholder='hola'></input>
+				</div>
+
+				<div id="search-container"></div>
+				<div class="autocomplete-loading"><i class="fa fa-refresh fa-spin fa-lg fa-fw"></i></div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

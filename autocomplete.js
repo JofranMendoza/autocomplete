@@ -1,7 +1,13 @@
 $(function() {
 
-		$.fn.autocompletar = function(options) {
-			// var isUrl = (typeof link == "string");
+
+
+		$.fn.autocomplete = function(options) {
+			var isUrl = true;//(typeof link == "string");
+			var link = true;
+			var timeWritten; 
+			var timeToWrite = 300; // limit of time in order to know if the user has finished typing.
+			var element = $(this);
 			defaults = {
 				inputClass: "autocomplete-input",
 				resultsClass: "autocomplete-results",
@@ -33,40 +39,116 @@ $(function() {
 				data: isUrl ? null : link,
 				delay: isUrl ? defaults.delay : 10,
 				max: options && !options.scroll ? 10 : 150
-			}, options);
-			var KEY = {
+			}, options),
+			KEY = {
 				UP: 38,
 				DOWN: 40,
+				LEFT: 37,
+				RIGHT: 39,
 				DEL: 46,
 				TAB: 9,
-				RETURN: 13,
+				ENTER: 13,
 				ESC: 27,
 				COMMA: 188,
 				PAGEUP: 33,
 				PAGEDOWN: 34,
 				BACKSPACE: 8
+			},
+			keyUp = function (e) {
+				clearTimeout(timeWritten);
+				switch (e.which) {
+					case KEY.BACKSPACE: break; // backspace
+					case KEY.TAB: break; // tab	
+					case KEY.ENTER: break; // enter
+						break;		
+					case 16: break; // shift
+					case 17: break; // ctrl
+					case 18: break; // alt
+					case KEY.ESC: break; // escape
+					case 32: break; // space
+					case 35: break; // end
+					case 36: break; // home
+					case KEY.LEFT: break; // left
+					case KEY.RIGHT: break; // right
+					case KEY.UP: break; // up
+					case KEY.DOWN: break; // down
+					case 112: break; // f1
+					case 113: break; // f2
+					case 114: break; // f3
+					case 115: break; // f4
+					case 116: break; // f5
+					case 117: break; // f6
+					case 118: break; // f7
+					case 119: break; // f8
+					case 120: break; // f9
+					case 121: break; // f10
+					case 122: break; // f11
+					case 123: break; // f12
+					default:
+						if (element.is('.autocomplete-input')){
+							// tiempoEscrito = setTimeout(cargarMusicaYT,tiempoDeEscribir);
+							// $('.'+defaults.loadingClass).css({'display': 'block'});
+							timeWritten = setTimeout(function(){
+								alert('time have passed');
+								$('.'+defaults.loadingClass).fadeIn(200); // I choosed this one
+							},timeToWrite);
+						} 
+				}
+			},
+			keyDown = function (e) {
+				clearTimeout(timeWritten);
+				switch(e.which) {
+					case KEY.ENTER: // enter
+						alert('Do something');
+						// selectItem(); // >> Create a function called selectItem
+						break; 
+					case KEY.ESC: // esc
+						// clearSearch(); //>> Create a function called clearSearch
+						break;
+					case KEY.LEFT: break; // left
+					case KEY.RIGHT: break; // right
+					case KEY.UP: // up
+						// move(-1); //>> Create a function called moveSelection
+						break;
+					case KEY.DOWN: 
+						// move(1); //>> Create a function called moveSelection
+						break; // down
+				}
 			};
-
-			var configuracion = $.extend({
+			
+			var configuration = $.extend({
             	// These are default settings.
             	color: "#666",
             	backgroundColor: "white"
-        	}, options );
+        	}, options);
 
+        	$(this).keyup(function(e){
+        		keyUp(e);
+        	});
+        	$(this).keydown(function(e){
+        		keyDown(e);
+        	});
 			if (isUrl) {
-				this.addClass(defaults.loadingClass);
-				// alert("es url, string");
+				var loadingDiv = $('.'+defaults.loadingClass);
+				loadingDiv.css({
+					'display': 'none',
+					'position': 'absolute',
+					'left': '100%',
+					'top': $(this).position().top + 5
+				});
 			}
-        	this.css({
-        		"background-color":configuracion.backgroundColor,
-        		"color": configuracion.color
+
+        	$(this).css({
+        		"background-color":configuration.backgroundColor,
+        		"color": configuration.color
 
         	});
-        	this.keydown();
 		};
-
-		var autocompletar = $.fn.autocompletar;
-
+		// url:'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&order=viewcount&type=video+&videoDefinition=high&key=AIzaSyDS4CW6iMg0U8uVQ4Iu7CtYFBQ6g9E06MM'
+		// var autocompletar = $.fn.autocomplete;
+		// alert(autocompletar);
+		
+		$('.autocomplete-input').autocomplete();
 
 		var tiempoEscrito; 
 		var tiempoDeEscribir = 300; // Tiempo limite para verificar si el usuario termino de escribir
@@ -178,7 +260,7 @@ $(function() {
 			$('#panelCompleteMsg p').html(message);
 		}
 
-		function autocomplete(){
+		function autocomplete2(){
 
 			valor = $("#txtLinkVideo").val();
 			posicion = $("#txtLinkVideo").position(); // Obtener la posicion del Input en la ventana
@@ -440,3 +522,4 @@ $(function() {
 // 	.DatosEstudiante { width: 30%; text-align: center; }
 // 	.autocomplete-loading { background : url('../../imagenes/item-loading.gif') right center no-repeat;}
 // </style>
+
